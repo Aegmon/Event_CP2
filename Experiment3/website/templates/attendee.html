@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    font-weight: bold;
+    color: red;
+  }
+  .events-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .note {
+    text-align: center;
+    width: 50%;
+  }
+</style>
+{% endblock %} {% block title %}Attendee Dashboard{% endblock %} {% block
+content %}
+<h1 align="center">
+  Hello <span class="info">{{ name }}</span>, Welcome, Lets Find Some Events For
+  You.
+</h1>
+<div class="events-container">
+  <a href="/attendee_invites"><h1>View Invites</h1></a>
+  <a href="/attendee_browse"><h1>Browse Events To Attend</h1></a>
+  <a href="/attendee_events"><h1>View Your Events</h1></a>
+  <a href="/attendee_history"><h1>Past Events Attended</h1></a>
+</div>
+
+<div class="note">
+  <h6>Note:</h6>
+</div>
+
+{% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}

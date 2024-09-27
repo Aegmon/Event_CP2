@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    font-weight: bold;
+    color: red;
+  }
+  .events-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .event-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+</style>
+{% endblock %} {% block title %}Attendee Dashboard{% endblock %} {% block
+content %}
+<h1 align="center">
+  Hello <span class="info">{{ name }}</span>, Welcome To Event Browsing.
+</h1>
+<div class="events-container">
+  <a href="/attendee_invites"><h1>View Invites</h1></a>
+  <a href="/attendee_events"><h1>View Your Events</h1></a>
+  <a href="/attendee_history"><h1>Past Events Attended</h1></a>
+</div>
+<h6>Note:</h6>
+
+<h2>Public Events:</h2>
+{% if public_events %} {% for event in public_events %}
+<div class="event-card">
+  <h4>Event Name: {{ event.event_name }}</h4>
+  <p>Event Description: {{ event.event_desc }}</p>
+  <p>Event Privacy: {{ event.event_privacy }}</p>
+  <p>Start Date: {{ event.start_date }}</p>
+  <p>End Date: {{ event.end_date }}</p>
+</div>
+{% endfor %} {% else %}
+<p>No public events found.</p>
+{% endif %} {% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}

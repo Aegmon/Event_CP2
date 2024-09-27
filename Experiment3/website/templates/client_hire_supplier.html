@@ -1,0 +1,144 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .sort1,
+  .sort2,
+  .sort3,
+  .sort4,
+  .sort5 {
+    display: none; /* Hide all sort divs by default */
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">Supplier List</h1>
+<div class="link_container">
+  <h3 align="center"><a href="/client">Create Event</a></h3>
+  <h3 align="center"><a href="/client_events">View Your Events</a></h3>
+</div>
+<h3>Sort By:</h3>
+<button type="button" id="sort1">Default</button>
+<button type="button" id="sort2">Highest Price</button>
+<button type="button" id="sort3">Lowest Price</button>
+<button type="button" id="sort4">Highest rating</button>
+<button type="button" id="sort5">Lowest rating</button>
+<div class="sort1">
+  <h1>sort1</h1>
+  <ul>
+    {% for thing in supplier_list1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <button>Hire</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort2">
+  <h1>sort2</h1>
+  <ul>
+    {% for thing in supplier_list1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <button>Hire</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort3">
+  <h1>sort3</h1>
+  <ul>
+    {% for thing in supplier_list1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <button>Hire</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort4">
+  <h1>sort4</h1>
+  <ul>
+    {% for thing in supplier_list1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <button>Hire</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort5">
+  <h1>sort5</h1>
+  <ul>
+    {% for thing in supplier_list1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <button>Hire</button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %} {% block javascript %}
+
+<script>
+  let thingsList = {{ supplier_list1 | tojson | safe }};
+
+  function showSortDiv(sortClass) {
+            const sortDivs = ['sort1', 'sort2', 'sort3', 'sort4', 'sort5'];
+
+            sortDivs.forEach(function(divClass) {
+                const div = document.querySelector(`.${divClass}`);
+                if (divClass === sortClass) {
+                    div.style.display = 'block'; // Show the selected div
+                } else {
+                    div.style.display = 'none'; // Hide the other divs
+                }
+            });
+        }
+
+        // Event listeners for the buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('sort1').addEventListener('click', function() {
+                showSortDiv('sort1');
+            });
+
+            document.getElementById('sort2').addEventListener('click', function() {
+                showSortDiv('sort2');
+            });
+
+            document.getElementById('sort3').addEventListener('click', function() {
+                showSortDiv('sort3');
+            });
+
+            document.getElementById('sort4').addEventListener('click', function() {
+                showSortDiv('sort4');
+            });
+
+            document.getElementById('sort5').addEventListener('click', function() {
+                showSortDiv('sort5');
+            });
+
+            // Initialize with the first sort div visible
+            showSortDiv('sort1');
+        });
+</script>
+
+{% endblock %}

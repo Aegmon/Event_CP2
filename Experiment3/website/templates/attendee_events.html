@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    font-weight: bold;
+    color: red;
+  }
+  .events-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Attendee Dashboard{% endblock %} {% block
+content %}
+<h1 align="center">
+  Hello <span class="info">{{ name }}</span>, Welcome To Your Attending Events.
+</h1>
+<div class="events-container">
+  <a href="/attendee_invites"><h1>View Invites</h1></a>
+  <a href="/attendee_browse"><h1>Browse Events To Attend</h1></a>
+  <a href="/attendee_history"><h1>Past Events Attended</h1></a>
+</div>
+<h6>Note:</h6>
+
+<div class="attending_events">
+  <h3>Attending Events:</h3>
+  {% if attending_events %} {% for event in attending_events %}
+  <div>
+    <h6>
+      I <span class="info">{{ name }}</span> will be attending the event
+      <span class="info">{{ event['event_name'] }}</span>, that starts at the
+      date of <span class="info">{{ event['start_date'] }}</span> and ends at
+      <span class="info">{{ event['end_date'] }}</span>. Description:
+      <span class="info">{{ event['event_desc'] }}</span>
+    </h6>
+
+    <!-- <h4>Event Name: {{ event['event_name'] }}</h4>
+    <p>Event Description: {{ event['event_desc'] }}</p>
+    <p>Start Date: {{ event['start_date'] }}</p>
+    <p>End Date: {{ event['end_date'] }}</p> -->
+  </div>
+  <hr />
+  {% endfor %} {% else %}
+  <p>No attending events found.</p>
+  {% endif %}
+</div>
+
+{% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}

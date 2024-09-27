@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    color: red;
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">
+  Welcome To Event Creation <span class="info"> {{ name }} </span>
+</h1>
+<div class="main_container">
+  <div class="containee1">
+    <a href="/create-event"><h1>Create Event</h1></a>
+  </div>
+  <div class="containee2">
+    <a href="/created_event_edit"><h1>View Your Events</h1></a>
+  </div>
+  <div class="containee3">
+    <a href="/create_event_history"><h1>Past Created Events</h1></a>
+  </div>
+  <div class="containee4">
+    <a href="/event_attendee_list"><h1>Attendee List</h1></a>
+  </div>
+</div>
+
+<div>
+  <h6>Notes:</h6>
+</div>
+
+{% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}

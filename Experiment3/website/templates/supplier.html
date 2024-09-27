@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Supplier</h1>
+
+<form method="POST">
+  <label for="supplier_type">Supplier Type</label>
+  <select class="form-control" id="supplier_type" name="supplier_type" required>
+    <option value="Photographer">Photographer</option>
+    <option value="Caterer">Caterer</option>
+    <option value="Entertainment">Entertainment</option>
+    <option value="Supplier">Security</option>
+  </select>
+
+  <label for="av_commission">Average Commission For Each Event</label>
+  <input
+    type="text"
+    id="av_commission"
+    name="av_commission"
+    class="form-control"
+  />
+  <label for="nickname">Nickname</label>
+  <input type="text" id="nickname" name="nickname" class="form-control" />
+  <label for="phone_number">Phone Number</label>
+  <input
+    type="text"
+    id="phone_number"
+    name="phone_number"
+    class="form-control"
+  />
+  <label for="email_sup">Email</label>
+  <input type="text" id="email_sup" name="email_sup" class="form-control" />
+
+  <label for="self_desc">Description Of Youself</label>
+  <input type="text" id="self_desc" name="self_desc" class="form-control" />
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Become Supplier</button>
+  </div>
+</form>
+{% endblock %}

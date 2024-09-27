@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    font-weight: bold;
+    color: red;
+  }
+  .events-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .note {
+    text-align: center;
+  }
+</style>
+{% endblock %} {% block title %}Attendee Dashboard{% endblock %} {% block
+content %}
+<h1 align="center">
+  Hello <span class="info">{{ name }}</span>, Welcome To Past Attended Events.
+</h1>
+<div class="events-container">
+  <a href="/attendee_invites"><h1>View Invites</h1></a>
+  <a href="/attendee_browse"><h1>Browse Events To Attend</h1></a>
+  <a href="/attendee_events"><h1>View Your Events</h1></a>
+</div>
+<h6 class="note">Note:</h6>
+
+<div class="past_attended_events">
+  <ul>
+    {% for event in attendee_history %}
+    <li>
+      <h3>{{ event.event_name }}</h3>
+      <p>{{ event.event_desc }}</p>
+      <p>Privacy: {{ event.event_privacy }}</p>
+      <p>Start: {{ event.start_date }}</p>
+      <p>End: {{ event.end_date }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}

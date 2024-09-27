@@ -1,0 +1,169 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .event_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .link_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .info {
+    color: red;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">Your Events</h1>
+<div class="link_container">
+  <h3 align="center"><a href="/client">Create Event</a></h3>
+  <h3 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h3>
+</div>
+<h5 align="center">Hello <span class="info">{{ name }}</span></h5>
+
+<div class="event_container">
+  {% for event in client_events %}
+  <div class="event" id="event-{{ event.id }}">
+    <li class="list-group-item">
+      <h4 align="center">{{ event.event_type }}</h4>
+      <h4>{{ event.event_name }}</h4>
+      <!-- Event details here -->
+
+      <!-- Display cake suppliers if available -->
+      {% if event.cake_thing %}
+      <h6>Cakes:</h6>
+      <button class="view_cake">View Cake Choices</button>
+      <ul>
+        {% for cake in event.cake_thing %}
+        <li>
+          {{ cake.name }} - Rating: {{ cake.rating }} - Price: ₱{{ cake.price }}
+          <button
+            class="delete"
+            onClick="deleteSupplier('{{ event.id }}', '{{ cake.name }}')"
+          >
+            Delete
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <!-- Display caterer suppliers if available -->
+      {% if event.caterer_thing %}
+      <h6>Caterers:</h6>
+      <button class="view_caterer">View Caterer Choices</button>
+      <ul>
+        {% for caterer in event.caterer_thing %}
+        <li>
+          {{ caterer.name }} - Rating: {{ caterer.rating }} - Price: ₱{{
+          caterer.price }}
+          <button
+            class="delete"
+            onClick="deleteSupplier('{{ event.id }}', '{{ caterer.name }}')"
+          >
+            Delete
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <!-- Display balloons suppliers if available -->
+      {% if event.balloons_thing %}
+      <h6>Balloons:</h6>
+      <button class="view_balloons">View Balloon Choices</button>
+      <ul>
+        {% for balloon in event.balloons_thing %}
+        <li>
+          {{ balloon.name }} - Rating: {{ balloon.rating }} - Price: ₱{{
+          balloon.price }}
+          <button
+            class="delete"
+            onClick="deleteSupplier('{{ event.id }}', '{{ balloon.name }}')"
+          >
+            Delete
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <!-- Display photographers suppliers if available -->
+      {% if event.photo_thing %}
+      <h6>Photographers:</h6>
+      <button class="view_photo">View Photographer Choices</button>
+      <ul>
+        {% for photo in event.photo_thing %}
+        <li>
+          {{ photo.name }} - Rating: {{ photo.rating }} - Price: ₱{{ photo.price
+          }}
+          <button
+            class="delete"
+            onClick="deleteSupplier('{{ event.id }}', '{{ photo.name }}')"
+          >
+            Delete
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <button
+        type="button"
+        class="close"
+        onClick="deleteEvent('{{ event.id }}')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %} {% block javascript %}
+<script>
+  function deleteSupplier(eventId, supplierName) {
+    fetch(`/delete_supplier`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+        supplier_name: supplierName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert("Error deleting supplier");
+        }
+      });
+  }
+
+  function deleteEvent(eventId) {
+    fetch(`/client_delete_event`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert("Error deleting event");
+        }
+      });
+  }
+</script>
+{% endblock %}
