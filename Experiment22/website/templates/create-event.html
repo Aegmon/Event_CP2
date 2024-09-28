@@ -1,0 +1,359 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  #event_type {
+    display: none;
+  }
+  .holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .main_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .birthday_creator,
+  .wedding_creator,
+  .baptismal_creator,
+  #event_type {
+    display: none; /* Start hidden */
+  }
+</style>
+{% endblock %} {% block title %}Home{% endblock %} {% block content %}
+<h1 align="center">Lets Make Some Events {{ name }}</h1>
+<div class="holder">
+  <a href="/created_event_edit"><h2 align="center">View Your Events</h2></a>
+  <a href="/event_attendee_list"><h2 align="center">Attendee List</h2></a>
+  <a href="/create_event_history"
+    ><h2 align="center">Past Created Events</h2></a
+  >
+</div>
+
+<div class="main_container">
+  <div class="create_bday">
+    <h1>Brithday</h1>
+    <button
+    class="create_birthday"
+    onclick="toggleVisibility('.birthday_creator')"
+  >Create Birthday</button>
+  <div class="birthday_creator">
+    <form method="POST">
+      <label for="event_name">Enter Event Name</label>
+      <input
+        type="text"
+        id="event_name"
+        name="event_name"
+        class="form-control"
+        required
+      />
+      <select name="event_type" id="event_type" class="event_type">
+        <option value="Birthday">Birthday</option>
+      </select>
+      <label for="event_privacy">Event Privacy Type</label>
+      <select
+        class="form-control"
+        id="event_privacy"
+        name="event_privacy"
+        required
+      >
+        <option value="Private">Private</option>
+        <option value="Public">Public</option>
+      </select>
+      <h5>Select Supplier Type To Generate: <br> (Optional)</h5>
+      <input type="checkbox" id="cake_gen" class="cake_gen" name="cake_gen">
+      <label for="cake_gen">Cake</label>
+      <br>
+      <input type="checkbox" id="digital_printing_gen" class="digital_printing_gen" name="digital_printing_gen">
+      <label for="digital_printing_gen">Digital Printing</label>
+      <br>
+      <input type="checkbox" id="event_planner_gen" class="event_planner_gen" name="event_planner_gen">
+      <label for="event_planner_gen">Event Planner</label>
+      <br>
+      <input type="checkbox" id="grazing_table_gen" class="grazing_table_gen" name="grazing_table_gen">
+      <label for="grazing_table_gen">Grazing Table</label>
+      <br>
+      <input type="checkbox" id="makeup_and_hair_gen" class="makeup_and_hair_gen" name="makeup_and_hair_gen">
+      <label for="makeup_and_hair_gen">Makeup and Hair Sylists</label>
+      <br>
+      <input type="checkbox" id="photobooth_gen" class="photobooth_gen" name="photobooth_gen">
+      <label for="photobooth_gen">Photobooth</label>
+      <br>
+      <input type="checkbox" id="photographer_gen" class="photographer_gen" name="photographer_gen">
+      <label for="photographer_gen">Photographers</label>
+      <br>
+      <label for="max_attendee_num">Maximum Number Of Attendees</label>
+      <input
+        type="text"
+        id="max_attendee_num"
+        name="max_attendee_num"
+        class="form-control"
+        required
+      />
+      <label for="event_desc">Enter Event Description</label>
+      <textarea id="event_desc" name="event_desc" class="form-control"></textarea>
+      <label for="start_date">Start Time/Date</label>
+      <input
+        type="datetime-local"
+        id="start_date"
+        name="start_date"
+        class="form-control"
+        required
+      />
+      <label for="end_date">End Time/Date</label>
+      <input
+        type="datetime-local"
+        id="end_date"
+        name="end_date"
+        class="form-control"
+        required
+      />
+      <label>Select Attendees To Invite:</label><br />
+      {% for attendee in attendees %}
+      <input
+        type="checkbox"
+        id="{{ attendee.id }}"
+        name="attendees"
+        value="{{ attendee.id }}"
+      />
+      <label for="{{ attendee.id }}"
+        >{{ attendee.first_name }} ({{ attendee.email }})</label
+      ><br />
+      {% endfor %}
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Create Event</button>
+      </div>
+    </form>
+  </div>
+  </div>
+  
+  <div class="create_wedding">
+    <h1>Wedding</h1>
+    <button
+    class="create_wedding"
+    onclick="toggleVisibility('.wedding_creator')"
+  >
+    Plan Wedding
+  </button>
+  <div class="wedding_creator">
+      <form method="POST"></form>
+      <label for="event_name">Enter Event Name</label>
+      <input
+        type="text"
+        id="event_name"
+        name="event_name"
+        class="form-control"
+        required
+      />
+      <select name="event_type" id="event_type" class="event_type">
+        <option value="Birthday">Birthday</option>
+      </select>
+      <label for="event_privacy">Event Privacy Type</label>
+      <select
+        class="form-control"
+        id="event_privacy"
+        name="event_privacy"
+        required
+      >
+        <option value="Private">Private</option>
+        <option value="Public">Public</option>
+      </select>
+      <h5>Select Supplier Type To Generate: <br> (Optional)</h5>
+      <input type="checkbox" id="cake_gen" class="cake_gen" name="cake_gen">
+      <label for="cake_gen">Cake</label>
+      <br>
+      <input type="checkbox" id="digital_printing_gen" class="digital_printing_gen" name="digital_printing_gen">
+      <label for="digital_printing_gen">Digital Printing</label>
+      <br>
+      <input type="checkbox" id="event_planner_gen" class="event_planner_gen" name="event_planner_gen">
+      <label for="event_planner_gen">Event Planner</label>
+      <br>
+      <input type="checkbox" id="grazing_table_gen" class="grazing_table_gen" name="grazing_table_gen">
+      <label for="grazing_table_gen">Grazing Table</label>
+      <br>
+      <input type="checkbox" id="makeup_and_hair_gen" class="makeup_and_hair_gen" name="makeup_and_hair_gen">
+      <label for="makeup_and_hair_gen">Makeup and Hair Sylists</label>
+      <br>
+      <input type="checkbox" id="photobooth_gen" class="photobooth_gen" name="photobooth_gen">
+      <label for="photobooth_gen">Photobooth</label>
+      <br>
+      <input type="checkbox" id="photographer_gen" class="photographer_gen" name="photographer_gen">
+      <label for="photographer_gen">Photographers</label>
+      <br>
+      <label for="budget">Enter Budget</label>
+      <input
+        type="text"
+        id="budget"
+        name="budget"
+        class="form-control"
+        required
+      />
+      <label for="max_attendee_num">Maximum Number Of Attendees</label>
+      <input
+        type="text"
+        id="max_attendee_num"
+        name="max_attendee_num"
+        class="form-control"
+        required
+      />
+      <label for="event_desc">Enter Event Description</label>
+      <textarea id="event_desc" name="event_desc" class="form-control"></textarea>
+      <label for="start_date">Start Time/Date</label>
+      <input
+        type="datetime-local"
+        id="start_date"
+        name="start_date"
+        class="form-control"
+        required
+      />
+      <label for="end_date">End Time/Date</label>
+      <input
+        type="datetime-local"
+        id="end_date"
+        name="end_date"
+        class="form-control"
+        required
+      />
+      <label>Select Attendees To Invite:</label><br />
+      {% for attendee in attendees %}
+      <input
+        type="checkbox"
+        id="{{ attendee.id }}"
+        name="attendees"
+        value="{{ attendee.id }}"
+        required
+      />
+      <label for="{{ attendee.id }}"
+        >{{ attendee.first_name }} ({{ attendee.email }})</label
+      ><br />
+      {% endfor %}
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Create Event</button>
+      </div>
+    </form>
+  </div>
+  </div>
+  <div class="create_baptismal">
+    <h1>Baptismal</h1>
+    <button
+      class="create_baptismal"
+      onclick="toggleVisibility('.baptismal_creator')"
+    >
+      Plan Baptismal
+    </button>
+    <div class="baptismal_creator">
+      <form method="POST">
+      <label for="event_name">Enter Event Name</label>
+      <input
+        type="text"
+        id="event_name"
+        name="event_name"
+        class="form-control"
+        required
+      />
+      <select name="event_type" id="event_type" class="event_type">
+        <option value="Birthday">Birthday</option>
+      </select>
+      <label for="event_privacy">Event Privacy Type</label>
+      <select
+        class="form-control"
+        id="event_privacy"
+        name="event_privacy"
+        required
+      >
+        <option value="Private">Private</option>
+        <option value="Public">Public</option>
+      </select>
+      <h5>Select Supplier Type To Generate: <br> (Optional)</h5>
+      <input type="checkbox" id="cake_gen" class="cake_gen" name="cake_gen">
+      <label for="cake_gen">Cake</label>
+      <br>
+      <input type="checkbox" id="digital_printing_gen" class="digital_printing_gen" name="digital_printing_gen">
+      <label for="digital_printing_gen">Digital Printing</label>
+      <br>
+      <input type="checkbox" id="event_planner_gen" class="event_planner_gen" name="event_planner_gen">
+      <label for="event_planner_gen">Event Planner</label>
+      <br>
+      <input type="checkbox" id="grazing_table_gen" class="grazing_table_gen" name="grazing_table_gen">
+      <label for="grazing_table_gen">Grazing Table</label>
+      <br>
+      <input type="checkbox" id="makeup_and_hair_gen" class="makeup_and_hair_gen" name="makeup_and_hair_gen">
+      <label for="makeup_and_hair_gen">Makeup and Hair Sylists</label>
+      <br>
+      <input type="checkbox" id="photobooth_gen" class="photobooth_gen" name="photobooth_gen">
+      <label for="photobooth_gen">Photobooth</label>
+      <br>
+      <input type="checkbox" id="photographer_gen" class="photographer_gen" name="photographer_gen">
+      <label for="photographer_gen">Photographers</label>
+      <br>
+      <label for="budget">Enter Budget</label>
+      <input
+        type="text"
+        id="budget"
+        name="budget"
+        class="form-control"
+        required
+      />
+      <label for="max_attendee_num">Maximum Number Of Attendees</label>
+      <input
+        type="text"
+        id="max_attendee_num"
+        name="max_attendee_num"
+        class="form-control"
+        required
+      />
+      <label for="event_desc">Enter Event Description</label>
+      <textarea id="event_desc" name="event_desc" class="form-control"></textarea>
+      <label for="start_date">Start Time/Date</label>
+      <input
+        type="datetime-local"
+        id="start_date"
+        name="start_date"
+        class="form-control"
+        required
+      />
+      <label for="end_date">End Time/Date</label>
+      <input
+        type="datetime-local"
+        id="end_date"
+        name="end_date"
+        class="form-control"
+        required
+      />
+      <label>Select Attendees To Invite:</label><br />
+      {% for attendee in attendees %}
+      <input
+        type="checkbox"
+        id="{{ attendee.id }}"
+        name="attendees"
+        value="{{ attendee.id }}"
+        required
+      />
+      <label for="{{ attendee.id }}"
+        >{{ attendee.first_name }} ({{ attendee.email }})</label
+      ><br />
+      {% endfor %}
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Create Event</button>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script>
+    function toggleVisibility(selector) {
+    const element = document.querySelector(selector);
+    if (element.style.display === "none" || element.style.display === "") {
+      element.style.display = "block"; // Show the element
+    } else {
+      element.style.display = "none"; // Hide the element
+    }
+  }
+</script>
+{% endblock %}

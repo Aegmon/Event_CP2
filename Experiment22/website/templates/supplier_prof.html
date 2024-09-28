@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %}Supplier Profile{% endblock %} {%
+block content %}
+<h1 align="center">My Supplier Information</h1>
+<div align="center">
+  <h3>Nickname: {{ nickname }}</h3>
+  <h3>Supplier Type: {{ supplier_type }}</h3>
+  <h3>Average Commission: {{ av_commission }}</h3>
+  <h3>Phone Number: {{ phone_number }}</h3>
+  <h3>Email: {{ email_sup }}</h3>
+  <h3>Description: {{ self_desc }}</h3>
+</div>
+{% endblock %}
