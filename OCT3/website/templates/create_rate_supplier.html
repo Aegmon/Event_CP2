@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Rate Suppliers{% endblock %} {% block
+content %}
+
+<h1 align="center">Rate And Give Feedbacks To Suppliers</h1>
+
+<div class="container">
+  {% for supplier in suppliers %}
+  <div class="supplier-card">
+    <h3>{{ supplier.fullname }}</h3>
+    <p><strong>Supplier Type:</strong> {{ supplier.supplier_type }}</p>
+    <p><strong>Commission:</strong> {{ supplier.commission }}</p>
+    <p>
+      <strong>Overall Rating:</strong> {{ supplier.over_all_rating or 'No rating
+      yet' }}
+    </p>
+    <p><strong>Phone Number:</strong> {{ supplier.phone_number }}</p>
+    <p><strong>Email:</strong> {{ supplier.email_sup }}</p>
+    <p><strong>Description:</strong> {{ supplier.supplier_description }}</p>
+    <form method="POST">
+      <input type="hidden" name="supplier_id" value="{{ supplier.id }}" />
+
+      <label for="rating">Rate Supplier</label>
+      <select name="rating" id="rating" class="form-control" required>
+        <option value="1">1</option>
+        <option value="1.5">1.5</option>
+        <option value="2">2</option>
+        <option value="2.5">2.5</option>
+        <option value="3">3</option>
+        <option value="3.5">3.5</option>
+        <option value="4">4</option>
+        <option value="4.5">4.5</option>
+        <option value="5">5</option>
+      </select>
+
+      <label for="feedback">Give Supplier Feedback</label>
+      <textarea
+        name="feedback"
+        id="feedback"
+        class="form-control"
+        required
+      ></textarea>
+
+      <button type="submit" class="btn btn-primary mt-3">
+        Submit Feedback
+      </button>
+    </form>
+    <hr />
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

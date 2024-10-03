@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Hello {{ name }}, Lets Further Set Up Your Account</h1>
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%}
+<ul class="flashes">
+  {% for category, message in messages %}
+  <li class="{{ category }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+
+<form method="POST">
+  <label for="email_sup">Work Email(If Applicable)</label>
+  <input type="email" id="email_sup" name="email_sup" class="form-control" />
+
+  <label for="supplier_type">Supplier Type</label>
+  <select class="form-control" id="supplier_type" name="supplier_type" required>
+    <option value="Cake">Cake Provider</option>
+    <option value="Digital_Printing">Digital Printer</option>
+    <option value="Event_Planner">Event Planner</option>
+    <option value="Grazing_Table">Grazing Table Provider</option>
+    <option value="Makeup_and_Hair">Makeup and Hair Artist</option>
+    <option value="Photobooth">Photobooth Provider</option>
+    <option value="Photographer">Photographer</option>
+    <option value="Catering">Catering Service</option>
+    <option value="Church">Church Hosting</option>
+    <option value="Event_Stylist">Event Stylist</option>
+    <option value="Events_Place">Event Venue Provider</option>
+    <option value="Lights_and_Sounds">Lights and/or Sounds Provider</option>
+    <option value="Others">Others</option>
+  </select>
+
+  <label for="commission">Commission For Each Event</label>
+  <input
+    type="text"
+    id="commission"
+    name="commission"
+    class="form-control"
+    required
+  />
+  <label for="phone_number">Phone Number</label>
+  <input
+    type="text"
+    id="phone_number"
+    name="phone_number"
+    class="form-control"
+    required
+  />
+  <label for="phone_number">Second Phone Number(Optional)</label>
+  <input
+    type="text"
+    id="phone_number2"
+    name="phone_number2"
+    class="form-control"
+  />
+
+  <label for="supplier_description">Describe What You Supply/Provide</label>
+  <input
+    type="text"
+    id="supplier_description"
+    name="supplier_description"
+    class="form-control"
+    required
+  />
+
+  <label for="extra_info">Extra Information About Yourself(Optional)</label>
+  <input type="text" id="extra_info" name="extra_info" class="form-control" />
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Become Supplier</button>
+  </div>
+</form>
+{% endblock %}

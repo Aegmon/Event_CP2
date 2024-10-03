@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Your Reviews and Feedback{% endblock
+%} {% block content %}
+
+<h1>Your Ratings and Feedbacks</h1>
+<div class="container">
+  {% if supplier_info %} {% for supplier in supplier_info %}
+  <div class="supplier-feedback">
+    <h3>Feedback for: {{ supplier.fullname }}</h3>
+    <p>
+      <strong>Reviewer:</strong> {{ supplier.reviewer or 'No reviewer yet' }}
+    </p>
+    <p><strong>Rating:</strong> {{ supplier.rating or 'No rating yet' }}</p>
+    <p>
+      <strong>Feedback:</strong> {{ supplier.feedback or 'No feedback yet' }}
+    </p>
+    <hr />
+  </div>
+  {% endfor %} {% else %}
+  <p>No ratings or feedbacks available.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

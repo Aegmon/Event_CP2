@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    color: red;
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">
+  Welcome To Past Created Events <span class="info"> {{ name }} </span>
+</h1>
+<div class="main_container">
+  <a href="/create-event"><h2>Create Event</h2></a>
+  <a href="/created_event_edit"><h2>View Your Events</h2></a>
+  <a href="/event_attendee_list"><h2>Event Attendee List</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+  <a href="/create_event_profile"><h2>View Profile</h2></a>
+</div>
+
+<div>
+  <h6>Notes:</h6>
+</div>
+
+<div class="past_created_events">
+  <ul>
+    {% for event in event_history %}
+    <li>
+      <h3>{{ event.event_name }}</h3>
+      <p>{{ event.event_desc }}</p>
+      <p>Type: {{ event.event_type }}</p>
+      <p>Privacy: {{ event.event_privacy }}</p>
+      <p>Start: {{ event.start_date }}</p>
+      <p>End: {{ event.end_date }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %} {% block javascript %}
+<script></script>
+{% endblock %}
