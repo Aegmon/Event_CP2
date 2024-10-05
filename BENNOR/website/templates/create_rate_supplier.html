@@ -1,0 +1,96 @@
+{% extends "base.html" %} {% block title %}Rate Suppliers{% endblock %} {% block
+head %}
+<style>
+  .info {
+    color: red;
+  }
+  .holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="holder">
+  <a href="/create-event"><h2>Create Event</h2></a>
+  <a href="/created_event_edit"><h2>View Your Events</h2></a>
+  <a href="/event_attendee_list"><h2>Attendee List</h2></a>
+  <a href="/create_event_history"><h2>Finalized Events</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+  <a href="/create_event_profile"><h2>View Profile</h2></a>
+</div>
+<h1 align="center">Rate And Give Feedbacks To Suppliers</h1>
+
+<div class="container">
+  {% for supplier in suppliers %}
+  <div class="supplier-card">
+    <h3>{{ supplier.fullname }}</h3>
+    <p><strong>Supplier Type:</strong> {{ supplier.supplier_type }}</p>
+    <p><strong>Commission:</strong> {{ supplier.commission }}</p>
+    <p>
+      <strong>Overall Rating:</strong> {{ supplier.over_all_rating or 'No rating
+      yet' }}
+    </p>
+    <p><strong>Phone Number:</strong> {{ supplier.phone_number }}</p>
+    <p><strong>Email:</strong> {{ supplier.email_sup }}</p>
+    <p><strong>Description:</strong> {{ supplier.supplier_description }}</p>
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.credibility1) }}"
+      alt="Credibility Image 1"
+      width="200"
+    />
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.credibility2) }}"
+      alt="Credibility Image 2"
+      width="200"
+    />
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.credibility3) }}"
+      alt="Credibility Image 3"
+      width="200"
+    />
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.credibility4) }}"
+      alt="Credibility Image 4"
+      width="200"
+    />
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.credibility5) }}"
+      alt="Credibility Image 5"
+      width="200"
+    />
+    <form method="POST">
+      <input type="hidden" name="supplier_id" value="{{ supplier.id }}" />
+
+      <label for="rating">Rate Supplier</label>
+      <select name="rating" id="rating" class="form-control" required>
+        <option value="1">1</option>
+        <option value="1.5">1.5</option>
+        <option value="2">2</option>
+        <option value="2.5">2.5</option>
+        <option value="3">3</option>
+        <option value="3.5">3.5</option>
+        <option value="4">4</option>
+        <option value="4.5">4.5</option>
+        <option value="5">5</option>
+      </select>
+
+      <label for="feedback">Give Supplier Feedback</label>
+      <textarea
+        name="feedback"
+        id="feedback"
+        class="form-control"
+        required
+      ></textarea>
+
+      <button type="submit" class="btn btn-primary mt-3">
+        Submit Feedback
+      </button>
+    </form>
+    <hr />
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

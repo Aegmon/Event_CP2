@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %}Your Reviews and Feedback{% endblock
+%} {% block head %}
+<style>
+  .info {
+    color: red;
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="main_container">
+  <a href="/supplier_rating_feedback"><h2>View Feedback and Ratings</h2></a>
+  <a href="/create_event_profile_supplier"><h2>View Profile</h2></a>
+  <a href="/supplier"><h2>Home</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+</div>
+
+<h1>Your Ratings and Feedbacks</h1>
+<div class="container">
+  {% if supplier_info %} {% for supplier in supplier_info %}
+  <div class="supplier-feedback">
+    <h3>Feedback for: {{ supplier.fullname }}</h3>
+    <p>
+      <strong>Reviewer:</strong> {{ supplier.reviewer or 'No reviewer yet' }}
+    </p>
+    <p><strong>Rating:</strong> {{ supplier.rating or 'No rating yet' }}</p>
+    <p>
+      <strong>Feedback:</strong> {{ supplier.feedback or 'No feedback yet' }}
+    </p>
+    <hr />
+  </div>
+  {% endfor %} {% else %}
+  <p>No ratings or feedbacks available.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

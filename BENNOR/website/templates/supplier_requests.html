@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block title %}Supplier Profile{% endblock %} {%
+block head %}
+<style>
+  .info {
+    color: red;
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="main_container">
+  <a href="/supplier"><h2>Home</h2></a>
+  <a href="/supplier_rating_feedback"><h2>View Feedback and Ratings</h2></a>
+  <a href="/create_event_profile_supplier"><h2>View Profile</h2></a>
+  <a href="/supplier"><h2>Home</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+</div>
+
+<h1 align="center">My Requests</h1>
+<div align="center">
+  <h3>Hire Requests</h3>
+  <ul>
+    {% for request in supplier_requests %}
+    <li>
+      <p>Event Creator: {{ request.req_event_creator }}</p>
+      <p>Event Name: {{ request.req_event_name }}</p>
+      <p>Event Type: {{ request.req_event_type }}</p>
+      <p>Room Code: {{ request.req_room_code }}</p>
+      <p>Start Date: {{ request.req_start_date }}</p>
+      <p>End Date: {{ request.req_end_date }}</p>
+      <form
+        action="{{ url_for('views_creator.accept_request') }}"
+        method="POST"
+      >
+        <input type="hidden" name="request_id" value="{{ request.id }}" />
+        <button type="submit">Accept</button>
+      </form>
+    </li>
+    {% else %}
+    <p>No hire requests available.</p>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="jobs">
+  <h3 align="center">Accepted Jobs</h3>
+  <ul>
+    {% for job in accepted_jobs %}
+    <li>
+      <h6>
+        I <span class="info">{{ fullname }}</span> have accepted the job offered
+        by the Event Creator:
+        <span class="info">{{ job.job_event_creator }}</span> in the event
+        <span class="info">{{ job.job_event_name }}</span> which is a
+        <span class="info">{{ job.job_event_type }}</span>. I am a
+        <span class="info">{{ supplier_info.supplier_type }}</span> supplier and
+        will supply for the event with the commission of
+        <span class="info">{{ supplier_info.commission }}</span> for the event.
+        It starts at <span class="info">{{ job.job_start_date }}</span> and ends
+        at <span class="info">{{ job.job_end_date }}</span>. The room code for
+        chatting options is <span class="info">{{ job.job_end_date }}</span>
+      </h6>
+    </li>
+    {% else %}
+    <p>No accepted jobs available.</p>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

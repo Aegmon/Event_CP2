@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .info {
+    color: red;
+  }
+  .holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">
+  Welcome To Finalized Events <span class="info"> {{ name }} </span>
+</h1>
+<div class="holder">
+  <a href="/create-event"><h2>Create Event</h2></a>
+  <a href="/created_event_edit"><h2>View Your Events</h2></a>
+  <a href="/event_attendee_list"><h2>Event Attendee List</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+  <a href="/create_event_profile"><h2>View Profile</h2></a>
+  <a href="/create_rate_supplier"><h2>View Suppliers</h2></a>
+  <a href="/view_hired_suppliers"><h2>Hired Suppliers</h2></a>
+</div>
+
+<div class="past_created_events">
+  <ul>
+    {% for event in event_history %}
+    <li>
+      <h3>{{ event.event_name }}</h3>
+      <p>{{ event.event_desc }}</p>
+      <p>Type: {{ event.event_type }}</p>
+      <p>Privacy: {{ event.event_privacy }}</p>
+      <p>Start: {{ event.start_date }}</p>
+      <p>End: {{ event.end_date }}</p>
+      <p>Room Code: {{ event.room_code }}</p>
+      <a
+        href="{{ url_for('views_creator.view_hired_suppliers', event_id=event.id) }}"
+        >View Hired Suppliers</a
+      >
+      <p>Suppliers:</p>
+      <ul>
+        {% for supplier in event.supplier_names %}
+        <li>{{ supplier }}</li>
+        <form
+          action="{{ url_for('views_creator.create_hire_supplier') }}"
+          method="POST"
+        >
+          <input type="hidden" name="supplier_name" value="{{ supplier }}" />
+          <input type="hidden" name="event_id" value="{{ event.id }}" />
+          <button type="submit">Hire</button>
+        </form>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </li>
+  </ul>
+</div>
+
+{% endblock %}

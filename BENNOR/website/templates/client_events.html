@@ -1,0 +1,320 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .event_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .link_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .info {
+    color: red;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">Your Events</h1>
+<div class="link_container">
+  <h2 align="center"><a href="/client">Create Event</a></h2>
+  <h2 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h2>
+  <h2 align="center"><a href="/create_event_profile_client">View Profile</a></h2>
+  <h2 align="center">
+    <a href="/client_suppliers_hired">View Hired Suppliers</a>
+  </h2>
+  <h2><a href="/join_room">Chat Room</a></h2>
+  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+</div>
+<h5 align="center">Hello <span class="info">{{ name }}</span></h5>
+
+<div class="event_container">
+  {% for event in client_events %}
+  <div class="event" id="event-{{ event.id }}">
+    <h3>{{ event.event_name }}</h3>
+    <h3>{{ event.event_type }}</h3>
+    <button onclick="toggleEventDetails({{ event.id }})">View Details</button>
+    <div id="event_details_holder_{{ event.id }}" style="display: none;">
+      <li class="list-group-item">
+        <h5 id="maximum_attendees">
+          Maximum Attendees: {{ event.max_attendee_num }}
+        </h5>
+        <h5 id="start_date_time">Start Date/Time: {{ event.start_date }}</h5>
+        <h5 id="end_date_time">End Date/Time: {{ event.end_date }}</h5>
+        <h5>
+          Total Cost:
+          <span id="total-weight-{{ event.id }}">{{ event.total_price }}</span>
+        </h5>
+        <label for="event_description"><h5>Event Description:</h5></label>
+        <p id="event_description">{{ event.event_desc }}</p>
+        <!-- Display cake suppliers if available -->
+        {% if event.cake_thing %}
+        <h6>Cakes:</h6>
+        <ul>
+          {% for cake in event.cake_thing %}
+          <li>
+            {{ cake.name }} - Rating: {{ cake.rating }} - Price: ₱{{ cake.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ cake.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Display digital printing suppliers if available -->
+        {% if event.digital_printing_thing %}
+        <h6>Digital Printers:</h6>
+        <ul>
+          {% for digital_printing in event.digital_printing_thing %}
+          <li>
+            {{ digital_printing.name }} - Rating: {{ digital_printing.rating }} - Price: ₱{{ digital_printing.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ digital_printing.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Display event planner suppliers if available -->
+        {% if event.event_planner_thing %}
+        <h6>Event Planner:</h6>
+        <ul>
+          {% for event_planner in event.event_planner_thing %}
+          <li>
+            {{ event_planner.name }} - Rating: {{ event_planner.rating }} - Price: ₱{{ event_planner.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ event_planner.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Display grazing table suppliers if available -->
+        {% if event.grazing_table_thing %}
+        <h6>Grazing Table:</h6>
+        <ul>
+          {% for grazing_table in event.grazing_table_thing %}
+          <li>
+            {{ grazing_table.name }} - Rating: {{ grazing_table.rating }} - Price: ₱{{ grazing_table.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ grazing_table.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.makeup_and_hair_thing %}
+        <h6>Makeup and Hair Stylist:</h6>
+        <ul>
+          {% for makeup_and_hair in event.makeup_and_hair_thing %}
+          <li>
+            {{ makeup_and_hair.name }} - Rating: {{ makeup_and_hair.rating }} - Price: ₱{{ makeup_and_hair.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ makeup_and_hair.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        
+        {% if event.photobooth_thing %}
+        <h6>Photobooths:</h6>
+        <ul>
+          {% for photobooth in event.photobooth_thing %}
+          <li>
+            {{ photobooth.name }} - Rating: {{ photobooth.rating }} - Price: ₱{{ photobooth.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ photobooth.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.photographer_thing  %}
+        <h6>Photographers:</h6>
+        <ul>
+          {% for photographer in event.photographer_thing  %}
+          <li>
+            {{ photographer.name }} - Rating: {{ photographer.rating }} - Price: ₱{{ photographer.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ photographer.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.catering_thing %}
+        <h6>Catering:</h6>
+        <ul>
+          {% for catering in event.catering_thing %}
+          <li>
+            {{ catering.name }} - Rating: {{ catering.rating }} - Price: ₱{{ catering.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ catering.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.church_thing %}
+        <h6>Churches:</h6>
+        <ul>
+          {% for church in event.church_thing %}
+          <li>
+            {{ church.name }} - Rating: {{ church.rating }} - Price: ₱{{ church.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ church.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.event_stylist_thing %}
+        <h6>Event Stylists:</h6>
+        <ul>
+          {% for event_stylist in event.event_stylist_thing %}
+          <li>
+            {{ event_stylist.name }} - Rating: {{ event_stylist.rating }} - Price: ₱{{ event_stylist.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ event_stylist.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.events_place_thing %}
+        <h6>Event Venues:</h6>
+        <ul>
+          {% for events_place in event.events_place_thing %}
+          <li>
+            {{ events_place.name }} - Rating: {{ events_place.rating }} - Price: ₱{{ events_place.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ events_place.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if event.lights_and_sounds_thing %}
+        <h6>Lights and Sound System:</h6>
+        <ul>
+          {% for lights_and_sounds in event.lights_and_sounds_thing %}
+          <li>
+            {{ lights_and_sounds.name }} - Rating: {{ lights_and_sounds.rating }} - Price: ₱{{ lights_and_sounds.price }}
+            <button
+              class="delete"
+              onClick="deleteSupplier('{{ event.id }}', '{{ lights_and_sounds.name }}')"
+            >
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <button type="button" class="close" onClick="deleteEvent({{ event.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+    </div>
+</div>
+{% endfor %}
+</ul>
+{% endblock %} {% block javascript %}
+<script>
+    function toggleEventDetails(eventId) {
+      const detailsHolder = document.getElementById(`event_details_holder_${eventId}`);
+      if (detailsHolder.style.display === 'none') {
+          detailsHolder.style.display = 'block'; // Make visible
+      } else {
+          detailsHolder.style.display = 'none'; // Make invisible
+      }
+  }
+
+  function deleteSupplier(eventId, supplierName) {
+    fetch(`/delete_supplier`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+        supplier_name: supplierName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert("Error deleting supplier");
+        }
+      });
+  }
+
+  function deleteEvent(eventId) {
+    fetch(`/client_delete_event`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert("Error deleting event");
+        }
+      });
+  }
+</script>
+{% endblock %}

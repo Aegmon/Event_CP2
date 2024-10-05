@@ -1,0 +1,316 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .sort1,
+  .sort2,
+  .sort3,
+  .sort4,
+  .sort5 {
+    display: none; /* Hide all sort divs by default */
+  }
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+<h1 align="center">Supplier List</h1>
+<div class="link_container">
+  <h2 align="center"><a href="/client">Create Event</a></h2>
+  <h2 align="center"><a href="/client_events">View Your Events</a></h2>
+  <h2 align="center">
+    <a href="/create_event_profile_client">View Profile</a>
+  </h2>
+  <h2 align="center">
+    <a href="/client_suppliers_hired">View Hired Suppliers</a>
+  </h2>
+  <h2><a href="/join_room">Chat Room</a></h2>
+  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+</div>
+<h3>Sort By:</h3>
+<button type="button" id="sort1">Cakes</button>
+<button type="button" id="sort2">Digital Printers</button>
+<button type="button" id="sort3">Event Planners</button>
+<button type="button" id="sort4">Grazing Table</button>
+<button type="button" id="sort5">Makeup And Hair Stylists</button>
+<button type="button" id="sort6">Photobooths</button>
+<button type="button" id="sort7">Photographers</button>
+<button type="button" id="sort8">Catering Service</button>
+<button type="button" id="sort9">Churches</button>
+<button type="button" id="sort10">Event Stylists</button>
+<button type="button" id="sort11">Event Places</button>
+<button type="button" id="sort12">Lights and Sounds</button>
+<div class="sort1">
+  <h1>Cakes</h1>
+  <ul>
+    {% for thing in cake1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort2">
+  <h1>Digital Printing</h1>
+  <ul>
+    {% for thing in digital_printing1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort3">
+  <h1>Event Planners</h1>
+  <ul>
+    {% for thing in event_planner1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort4">
+  <h1>Grazing Table</h1>
+  <ul>
+    {% for thing in grazing_table1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort5">
+  <h1>Makeup And Hair Artitst</h1>
+  <ul>
+    {% for thing in makeup_and_hair1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort6">
+  <h1>Photobooth</h1>
+  <ul>
+    {% for thing in photobooth1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort7">
+  <h1>Photographer</h1>
+  <ul>
+    {% for thing in photographer1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort8">
+  <h1>Catering</h1>
+  <ul>
+    {% for thing in catering1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort9">
+  <h1>Churches</h1>
+  <ul>
+    {% for thing in church1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort10">
+  <h1>Event Stylists</h1>
+  <ul>
+    {% for thing in event_stylist1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort11">
+  <h1>Event Places</h1>
+  <ul>
+    {% for thing in events_place1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="sort12">
+  <h1>Lights and Sounds</h1>
+  <ul>
+    {% for thing in lights_and_sounds1 %}
+    <li>
+      {{ thing.name }}, {{ thing.rating }}, {{ thing.price }}, {{
+      thing.phone_number }}, {{ thing.email }}
+      <form action="/client_hire_supplier" method="POST">
+        <input type="hidden" name="supplier_name" value="{{ thing.name }}" />
+        <button type="submit">Hire</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %} {% block javascript %}
+
+<script>
+  let thingsList = {{ things_list | tojson | safe }};
+
+  function showSortDiv(sortClass) {
+            const sortDivs = ['sort1', 'sort2', 'sort3', 'sort4', 'sort5', 'sort6', 'sort7', 'sort8', 'sort9', 'sort10', 'sort11', 'sort12'];
+
+            sortDivs.forEach(function(divClass) {
+                const div = document.querySelector(`.${divClass}`);
+                if (divClass === sortClass) {
+                    div.style.display = 'block'; // Show the selected div
+                } else {
+                    div.style.display = 'none'; // Hide the other divs
+                }
+            });
+        }
+
+        // Event listeners for the buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('sort1').addEventListener('click', function() {
+                showSortDiv('sort1');
+            });
+
+            document.getElementById('sort2').addEventListener('click', function() {
+                showSortDiv('sort2');
+            });
+
+            document.getElementById('sort3').addEventListener('click', function() {
+                showSortDiv('sort3');
+            });
+
+            document.getElementById('sort4').addEventListener('click', function() {
+                showSortDiv('sort4');
+            });
+
+            document.getElementById('sort5').addEventListener('click', function() {
+                showSortDiv('sort5');
+            });
+
+            document.getElementById('sort6').addEventListener('click', function() {
+                showSortDiv('sort6');
+            });
+
+            document.getElementById('sort7').addEventListener('click', function() {
+                showSortDiv('sort7');
+            });
+
+            document.getElementById('sort8').addEventListener('click', function() {
+                showSortDiv('sort8');
+            });
+
+            document.getElementById('sort9').addEventListener('click', function() {
+                showSortDiv('sort9');
+            });
+
+            document.getElementById('sort10').addEventListener('click', function() {
+                showSortDiv('sort10');
+            });
+
+            document.getElementById('sort11').addEventListener('click', function() {
+                showSortDiv('sort11');
+            });
+
+            document.getElementById('sort12').addEventListener('click', function() {
+                showSortDiv('sort12');
+            });
+
+
+
+            // Initialize with the first sort div visible
+            showSortDiv('sort1');
+        });
+</script>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}Rate Suppliers{% endblock %} {% block
+head %}
+<style>
+  .info {
+    color: red;
+  }
+  .holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .supplier-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="holder">
+  <a href="/create-event"><h2>Create Event</h2></a>
+  <a href="/created_event_edit"><h2>View Your Events</h2></a>
+  <a href="/event_attendee_list"><h2>Attendee List</h2></a>
+  <a href="/create_event_history"><h2>Event Records</h2></a>
+  <a href="/join_room"><h2>Chat Room</h2></a>
+  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
+  <a href="/create_event_profile"><h2>View Profile</h2></a>
+  <a href="/create_rate_supplier"><h2>View Suppliers</h2></a>
+</div>
+<h1 align="center">Rate And Give Feedback to Suppliers</h1>
+<div class="container">
+  <h1 align="center">Hired Suppliers</h1>
+
+  {% if hired_suppliers %}
+  <ul class="supplier-list">
+    {% for supplier in hired_suppliers %}
+    <li class="supplier-item">
+      <p>
+        <strong>Event Name:</strong> {{ supplier.event.event_name if
+        supplier.event else 'No Event Associated' }}
+      </p>
+      <!-- Accessing event name -->
+      <p><strong>Supplier Name:</strong> {{ supplier.supplier_fullname }}</p>
+      <p><strong>Type:</strong> {{ supplier.supplier_type }}</p>
+      <p><strong>Commission:</strong> {{ supplier.commission }}</p>
+      <p><strong>Phone 1:</strong> {{ supplier.phone_number }}</p>
+      <p><strong>Phone 2:</strong> {{ supplier.phone_number2 }}</p>
+      <p><strong>Email:</strong> {{ supplier.email_sup }}</p>
+      <p><strong>Description:</strong> {{ supplier.supplier_description }}</p>
+      <p><strong>Extra Info:</strong> {{ supplier.extra_info }}</p>
+      <p><strong>Rating:</strong> {{ supplier.over_all_rating }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No suppliers have been hired for this event yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

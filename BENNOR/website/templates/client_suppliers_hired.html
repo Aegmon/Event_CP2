@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hired_supplier_list {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+  }
+  .hired_supplier_item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  h3 {
+    margin-top: 0;
+  }
+</style>
+{% endblock %} {% block title %}Hired Suppliers{% endblock %} {% block content
+%}
+<div class="main_container">
+  <h2 align="center"><a href="/client">Create Event</a></h2>
+  <h2 align="center"><a href="/client_events">View Your Events</a></h2>
+  <h2 align="center">
+    <a href="/create_event_profile_client">View Profile</a>
+  </h2>
+  <h2 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h2>
+  <h2><a href="/join_room">Chat Room</a></h2>
+  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+</div>
+
+<h1 align="center">Hired Suppliers</h1>
+
+<div class="hired_supplier_list">
+  {% if hired_suppliers %} {% for supplier in hired_suppliers %}
+  <div class="hired_supplier_item">
+    <h3>{{ supplier.supplier_fullname }} ({{ supplier.supplier_type }})</h3>
+    <p>Commission: {{ supplier.commission }}</p>
+    <p>
+      Phone: {{ supplier.phone_number }}{% if supplier.phone_number2 %} / {{
+      supplier.phone_number2 }}{% endif %}
+    </p>
+    <p>Email: {{ supplier.email_sup }}</p>
+    <p>Description: {{ supplier.supplier_description }}</p>
+    <p>Extra Info: {{ supplier.extra_info }}</p>
+    <p>Rating: {{ supplier.over_all_rating }}</p>
+  </div>
+  {% endfor %} {% else %}
+  <p>No suppliers have been hired yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block head %}
+<style>
+  .main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+{% endblock %} {% block title %}Request Supplier{% endblock %} {% block content
+%}
+<div class="main_container">
+  <h2 align="center"><a href="/client">Create Event</a></h2>
+  <h2 align="center"><a href="/client_events">View Your Events</a></h2>
+  <h2 align="center">
+    <a href="/create_event_profile_client">View Profile</a>
+  </h2>
+  <h2 align="center">
+    <a href="/client_suppliers_hired">View Hired Suppliers</a>
+  </h2>
+  <h2><a href="/join_room">Chat Room</a></h2>
+  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+</div>
+<h1 align="center">Send Request to {{ supplier_name }}</h1>
+<h3>Supplier Type: {{ supplier_email }}</h3>
+<h3>Commission: {{ commission }}</h3>
+<h3>Supplier Description: {{ supplier_description }}</h3>
+<h3>Extra Information: {{ extra_info }}</h3>
+<h3>Email: {{ supplier_email }}</h3>
+<h3>Phone: {{ supplier_phone }}</h3>
+<h3>Phone: {{ supplier_phone2 }}</h3>
+<h3>Rating: {{ over_all_rating }}</h3>
+<h3>Commission: {{ commission }}</h3>
+
+<form action="{{ url_for('views_creator.client_send_request') }}" method="POST">
+  <label for="job_event_name"
+    >State If Services Are Required For Event Or Personal Help</label
+  >
+  <input
+    type="text"
+    id="job_event_name"
+    name="job_event_name"
+    class="form-control"
+    required
+  />
+
+  <!-- Hidden input for job_event_type (since it's fixed as "Client-Help") -->
+  <input
+    type="hidden"
+    id="job_event_type"
+    name="job_event_type"
+    value="Client-Help"
+  />
+
+  <!-- Hidden input for the supplier's name -->
+  <input type="hidden" name="supplier_name" value="{{ supplier_name }}" />
+  <!-- Hidden input for the client's user_id -->
+  <input type="hidden" name="client_id" value="{{ current_user.id }}" />
+
+  <label for="start_date">Start Time/Date Of Required Services</label>
+  <input
+    type="datetime-local"
+    id="start_date"
+    name="start_date"
+    class="form-control"
+    required
+  />
+
+  <label for="end_date">End Time/Date Of Required Services</label>
+  <input
+    type="datetime-local"
+    id="end_date"
+    name="end_date"
+    class="form-control"
+    required
+  />
+
+  <button type="submit">Send Request</button>
+</form>
+{% endblock %}
