@@ -1,10 +1,12 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+{% block head %}
 <style>
   .content {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .buttons {
     display: flex;
     flex-direction: column;
@@ -12,52 +14,75 @@
     justify-content: center;
     gap: 10px;
   }
+
   .join {
     display: flex;
     flex-direction: row;
     width: 100%;
   }
+
   .main_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   .info {
     color: red;
   }
 </style>
-{% endblock %} {% block title %}Chat Room{% endblock %} {% block content %}
+{% endblock %}
+{% block title %}Chat Room{% endblock %}
+{% block content %}
 <div class="main_container">
   {% if role == "Event Creator" %}
-  <a href="/create-event"><h2>Create Event</h2></a>
-  <a href="/created_event_edit"><h2>View Your Events</h2></a>
-  <a href="/create_event_history"><h2>Finalized Events</h2></a>
-  <a href="/event_attendee_list"><h2>Attendee List</h2></a>
-  <a href="/video_chat_dashboard" target="_blank"><h2>Video Chat Room</h2></a>
-  <a href="/create_rate_supplier"><h2>View Suppliers</h2></a>
-  <a href="/create_event_profile"><h2>View Profile</h2></a>
-  {% endif %} {% if role == "Attendee" %}
-  <a href="/attendee_invites"><h2>View Invites</h2></a>
-  <a href="/attendee_browse"><h2>Browse Events To Attend</h2></a>
-  <a href="/attendee_events"><h2>View Your Events</h2></a>
-  <a href="/attendee_history"><h2>Past Events Attended</h2></a>
-  <a href="/video_chat_dashboard_attendee" target="_blank"
-    ><h2>Video Chat Room</h2></a
-  >
-  {% endif %} {% if role == "Client" %}
-  <h2 align="center"><a href="/client">Plan An Event</a></h2>
-  <h2 align="center"><a href="/client_events">View Your Events</a></h2>
-  <h2 align="center">
-    <a href="/client_attend_events">Attend Public Events</a>
-  </h2>
-  <h2 align="center">
-    <a href="/client_events_to_attend">RSVPed Events</a>
-  </h2>
-  <h2 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h2>
-  <h2 align="center">
-    <a href="/create_event_profile_client">View Profile</a>
-  </h2>
-  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+  <a href="/create-event" class="btn btn-primary">
+    Create Event
+  </a>
+  <a href="/created_event_edit" class="btn btn-primary">
+    View Your Events
+  </a>
+  <a href="/create_event_history" class="btn btn-primary">
+    Finalized Events
+  </a>
+  <a href="/event_attendee_list" class="btn btn-primary">
+    Attendee List
+  </a>
+  <a href="/video_chat_dashboard" target="_blank" class="btn btn-primary">
+    Video Chat Room
+  </a>
+  <a href="/create_rate_supplier" class="btn btn-primary">
+    View Suppliers
+  </a>
+  <a href="/create_event_profile" class="btn btn-primary">
+    View Profile
+  </a>
+  {% endif %}
+  {% if role == "Attendee" %}
+  <a href="/attendee_invites" class="btn btn-primary">
+    <h2>View Invites</h2>
+  </a>
+  <a href="/attendee_browse" class="btn btn-primary">
+    <h2>Browse Events To Attend</h2>
+  </a>
+  <a href="/attendee_events" class="btn btn-primary">
+    <h2>View Your Events</h2>
+  </a>
+  <a href="/attendee_history" class="btn btn-primary">
+    <h2>Past Events Attended</h2>
+  </a>
+  <a href="/video_chat_dashboard_attendee" target="_blank" class="btn btn-primary">
+    <h2>Video Chat Room</h2>
+  </a>
+  {% endif %}
+  {% if role == "Client" %}
+  <a href="/client" class="btn btn-primary">Plan An Event</a>
+  <a href="/client_events" class="btn btn-primary">View Your Events</a>
+  <a href="/client_attend_events" class="btn btn-primary">Attend Public Events</a>
+  <a href="/client_events_to_attend" class="btn btn-primary">RSVPed Events</a>
+  <a href="/client_hire_supplier" class="btn btn-primary">Hire Supplier</a>
+  <a href="/create_event_profile_client" class="btn btn-primary">View Profile</a>
+  <a href="/video_chat_dashboard" target="_blank" class="btn btn-primary">Video Chat Room</a>
   {% endif %}
 </div>
 
@@ -68,14 +93,8 @@
 <form method="post" class="buttons">
   <h3>Enter The Chat Room</h3>
   <div class="join">
-    <input
-      type="text"
-      placeholder="Room Code"
-      name="code"
-      value="{{code}}"
-      required
-    />
-    <button type="submit" name="join">Join a Room</button>
+    <input type="text" placeholder="Room Code" name="code" value="{{code}}" required />
+    <button type="submit" name="join" class="btn btn-primary">Join a Room</button>
   </div>
 
   {% if role == "Attendee" %}
@@ -89,7 +108,8 @@
       {% endfor %}
     </ul>
   </div>
-  {% endif %} {% if role == "Event Creator" %}
+  {% endif %}
+  {% if role == "Event Creator" %}
   <div class="room_codes_creator">
     <h4>Your Created Event Rooms</h4>
     <ul>
@@ -100,7 +120,8 @@
       {% endfor %}
     </ul>
   </div>
-  {% endif %}{% if role == "Client" %}
+  {% endif %}
+  {% if role == "Client" %}
   <div class="room_codes_creator">
     <h4>Your Created Event Rooms</h4>
     <ul>
@@ -111,17 +132,16 @@
       {% endfor %}
     </ul>
   </div>
-  {% endif %} {% if error %}
+  {% endif %}
+  {% if error %}
   <ul>
     <li>{{error}}</li>
   </ul>
   {% endif %}
 </form>
-{% endblock %} {% block javascript %}
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-  crossorigin="anonymous"
-></script>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
   var socketio = io();
 </script>

@@ -1,53 +1,78 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+
+{% block head %}
 <style>
   .info {
     font-weight: bold;
     color: red;
   }
+
   .creator-info {
     font-size: 1.2em;
+    margin-bottom: 30px;
   }
+
   .events-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* Adjusted for better spacing */
+    flex-wrap: wrap;
+    /* Allow wrapping for smaller screens */
+    margin-bottom: 20px;
+    /* Added margin for spacing below */
   }
+
   .rating-section {
     margin-top: 30px;
   }
+
   .rating {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 15px;
   }
+
+  img {
+    margin: 10px 0;
+    /* Add margin to images for spacing */
+  }
 </style>
-{% endblock %} {% block title %}Creator Information{% endblock %} {% block
-content %}
+{% endblock %}
+
+{% block title %}
+Creator Information
+{% endblock %}
+
+{% block content %}
 <div class="events-container">
   {% if user.role == "Attendee" %}
-  <a href="/attendee_invites"><h2>View Invites</h2></a>
-  <a href="/attendee_browse"><h2>Public Events To Attend</h2></a>
-  <a href="/attendee_history"><h2>Past Events Attended</h2></a>
-  <a href="/join_room_attendee"><h2>Chat Room</h2></a>
-  <a href="/video_chat_dashboard_attendee" target="_blank"
-    ><h2>Join Video Chat</h2></a
-  >
-
+  <a href="/attendee_invites">
+    <h2>View Invites</h2>
+  </a>
+  <a href="/attendee_browse">
+    <h2>Public Events To Attend</h2>
+  </a>
+  <a href="/attendee_history">
+    <h2>Past Events Attended</h2>
+  </a>
+  <a href="/join_room_attendee">
+    <h2>Chat Room</h2>
+  </a>
+  <a href="/video_chat_dashboard_attendee" target="_blank">
+    <h2>Join Video Chat</h2>
+  </a>
   {% else %}
   <h2 align="center"><a href="/client">Plan An Event</a></h2>
   <h2 align="center"><a href="/client_events">View Your Events</a></h2>
-  <h2 align="center">
-    <a href="/client_events_to_attend">RSVPed Events</a>
-  </h2>
+  <h2 align="center"><a href="/client_events_to_attend">RSVPed Events</a></h2>
   <h2 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h2>
-  <h2 align="center">
-    <a href="/create_event_profile_client">View Profile</a>
-  </h2>
+  <h2 align="center"><a href="/create_event_profile_client">View Profile</a></h2>
   <h2><a href="/join_room">Chat Room</a></h2>
   <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
-
   {% endif %}
 </div>
+
 <h1 align="center">Creator Information</h1>
 
 <div class="creator-info">
@@ -58,37 +83,13 @@ content %}
   <p><strong>Past Experience:</strong> {{ creator.past_experience }}</p>
 
   <!-- Check if each image exists before rendering -->
-  {% if creator.credibility1 %}
-  <img
-    src="{{ url_for('static', filename='uploads/' + creator.credibility1) }}"
-    alt="Credibility Image 1"
-    width="200"
-  />
-  {% endif %} {% if creator.credibility2 %}
-  <img
-    src="{{ url_for('static', filename='uploads/' + creator.credibility2) }}"
-    alt="Credibility Image 2"
-    width="200"
-  />
-  {% endif %} {% if creator.credibility3 %}
-  <img
-    src="{{ url_for('static', filename='uploads/' + creator.credibility3) }}"
-    alt="Credibility Image 3"
-    width="200"
-  />
-  {% endif %} {% if creator.credibility4 %}
-  <img
-    src="{{ url_for('static', filename='uploads/' + creator.credibility4) }}"
-    alt="Credibility Image 4"
-    width="200"
-  />
-  {% endif %} {% if creator.credibility5 %}
-  <img
-    src="{{ url_for('static', filename='uploads/' + creator.credibility5) }}"
-    alt="Credibility Image 5"
-    width="200"
-  />
+  {% for i in range(1, 6) %}
+  {% set credibility_image = getattr(creator, 'credibility' + i|string) %}
+  {% if credibility_image %}
+  <img src="{{ url_for('static', filename='uploads/' + credibility_image) }}" alt="Credibility Image {{ i }}"
+    width="200" />
   {% endif %}
+  {% endfor %}
 </div>
 
 <!-- Ratings Section -->
@@ -100,8 +101,8 @@ content %}
     {% for rating in ratings %}
     <li class="rating">
       <p>
-        <strong>Reviewer:</strong> {{ rating.reviewer_firstname }} {{
-        rating.reviewer_lastname }} ({{ rating.reviewer_role }})
+        <strong>Reviewer:</strong> {{ rating.reviewer_firstname }} {{ rating.reviewer_lastname }} ({{
+        rating.reviewer_role }})
       </p>
       <p><strong>Rating:</strong> {{ rating.rating }} / 5.0</p>
       <p><strong>Feedback:</strong> {{ rating.feedback }}</p>

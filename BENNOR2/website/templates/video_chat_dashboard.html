@@ -22,7 +22,7 @@
       href="{{ url_for('views_attendee.video_join_meeting_attendee') }}"
       >Join Meeting</a
     >
-    {% endif %} {% if role == "Supplier" %}
+    {% endif %} {% if role == "Supplier" or "Client" %}
     <a
       class="btn btn-primary"
       href="{{ url_for('views_creator.video_join_meeting') }}"

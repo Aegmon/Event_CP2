@@ -1,40 +1,79 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+
+{% block head %}
 <style>
   .link_container {
     display: flex;
+    flex-direction: column;
+    /* Stacking links vertically */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    margin-bottom: 20px;
+    /* Added space below the links */
+  }
+
+  .link_container a {
+    display: inline-block;
+    /* Make links appear as buttons */
+    padding: 10px 20px;
+    /* Padding for button effect */
+    margin: 10px 0;
+    /* Space between buttons */
+    background-color: #3E2B71;
+    /* Button background color */
+    color: white;
+    /* Button text color */
+    text-decoration: none;
+    /* Remove underline */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s;
+    /* Smooth background change on hover */
+  }
+
+  .link_container a:hover {
+    background-color: #2a1c5b;
+    /* Darker shade on hover */
   }
 
   .info {
     color: red;
   }
+
+  .highlighted-info {
+    margin-top: 20px;
+    text-align: center;
+  }
 </style>
-{% endblock %} {% block title %}Client Events{% endblock %} {% block content %}
+{% endblock %}
+
+{% block title %}
+Client Events
+{% endblock %}
+
+{% block content %}
 <div class="link_container">
-  <h2 align="center"><a href="/client">Plan An Event</a></h2>
-  <h2 align="center"><a href="/client_events">View Your Events</a></h2>
-  <h2 align="center">
-    <a href="/client_attend_events">Attend Public Events</a>
-  </h2>
-  <h2 align="center">
-    <a href="/client_events_to_attend">RSVPed Events</a>
-  </h2>
-  <h2 align="center"><a href="/client_hire_supplier">Hire Supplier</a></h2>
-  <a href="/rating_and_feedback"><h2>Rate Suppliers</h2></a>
-  <h2 align="center">
-    <a href="/create_event_profile_client">View Profile</a>
-  </h2>
-  <h2><a href="/join_room">Chat Room</a></h2>
-  <h2><a href="/video_chat_dashboard" target="_blank">Video Chat Room</a></h2>
+  <a href="/client">Plan An Event</a>
+  <a href="/client_events">View Your Events</a>
+  <a href="/client_attend_events">Attend Public Events</a>
+  <a href="/client_events_to_attend">RSVPed Events</a>
+  <a href="/client_hire_supplier">Hire Supplier</a>
+  <a href="/rating_and_feedback">Rate Suppliers</a>
+  <a href="/create_event_profile_client">View Profile</a>
+  <a href="/join_room">Chat Room</a>
+  <a href="/video_chat_dashboard" target="_blank">Video Chat Room</a>
 </div>
+
 <h1 align="center">Client Create Events</h1>
-<h5 align="center">
-  Hello <span class="info">{{ name }} </span>, as a Client, you are able to
+<h5 class="highlighted-info">
+  Hello <span class="info">{{ name }}</span>, as a Client, you are able to
   <span class="info">attend public events</span>,
-  <span class="info">use the algorithm to plan events</span> and
+  <span class="info">use the algorithm to plan events</span>, and
   <span class="info">hire suppliers</span>.
 </h5>
-{% endblock %} {% block javascript %}
+
+{% endblock %}
+
+{% block javascript %}
 <script></script>
 {% endblock %}
